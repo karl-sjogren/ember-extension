@@ -38,7 +38,9 @@ module.exports = function(grunt) {
     'copy:chrome_extension',
     'wrap:chrome_ember_debug',
     'copy:firefox_extension',
-    'wrap:firefox_ember_debug'
+    'wrap:firefox_ember_debug',
+    'copy:firebug_extension',
+    'wrap:firebug_ember_debug'
   ]);
 
   grunt.registerTask('build_ember_debug', [
@@ -58,16 +60,29 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build_xpi', [
     'mozilla-addon-sdk',
-    'mozilla-cfx-xpi'
+    'mozilla-cfx-xpi:stable_firefox'
+  ]);
+  
+  grunt.registerTask('build_xpi_firebug', [
+    'mozilla-addon-sdk',
+    'mozilla-cfx-xpi:stable_firebug'
   ]);
 
-  grunt.registerTask('run_xpi', ['build', 'build_xpi', 'mozilla-cfx:run']);
+  grunt.registerTask('run_xpi', ['build', 'build_xpi', 'mozilla-cfx:run_firefox']);
+  grunt.registerTask('run_xpi_firebug', ['build', 'build_xpi_firebug', 'mozilla-cfx:run_firebug']);
 
   grunt.registerTask('build_and_upload', [
     'build',
     'compress:main',
     'build_xpi',
     'ember-s3'
+  ]);
+  
+  grunt.registerTask('build_and_upload_firebug', [
+    'build',
+    'compress:main',
+    'build_xpi',
+    //'ember-s3' // No uploading of firebug-extension yet
   ]);
 
   grunt.registerTask('server', ['build_test','connect','watch']);

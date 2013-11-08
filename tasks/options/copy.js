@@ -45,6 +45,25 @@ module.exports = {
       dest: 'dist_firefox/data/panes/ember_extension.css'
     }]
   },
+  firebug_extension: {
+    files: [{
+      src: ['tmp/public/ember_extension.js'],
+      dest: 'dist_firebug/data/panes/ember_extension.js'
+    }, {
+      expand: true,
+      cwd: 'vendor',
+      src: ['**'],
+      dest: 'dist_firebug/data/vendor/'
+    }, {
+      expand: true,
+      cwd: 'images',
+      src: ['**'],
+      dest: 'dist_firebug/data/images/'
+    } ,{
+      src: ['tmp/public/ember_extension.css'],
+      dest: 'dist_firebug/data/panes/ember_extension.css'
+    }]
+  },
   tests: {
     files: [
     {
